@@ -1,6 +1,10 @@
+
 import axios from 'axios';
 
-const api = axios.create({ baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000' });
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'https://preplan-tackiness-lethargic.ngrok-free.dev',
+  headers: { 'ngrok-skip-browser-warning': 'true' }
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -8,5 +12,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const errMsg = (e) => e.response?.data?.message || 'Terjadi kesalahan, coba lagi';
+export const errMsg = (e) =>
+  e.response?.data?.message || 'Terjadi kesalahan, coba lagi';
+
 export default api;
